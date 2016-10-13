@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			// 垃圾收集  方法1 标记方法  方法2 引用计数法
+			/*
+			function test(){
+				var a = 10; // 被使用
+				var b = 20; // 被使用
+				var c;
+				c = a;//count = 2;
+				a = 50;// count - 1 ;  // 0 
+			}
+			test(); //执行完毕  a,b 又被标记一次  没有被使用
+			*/
+			// 块级作用域的概念  
+			//JS没有块级作用域的概念   只有函数执行完毕之后 变量才会被销毁
+			//高级程序语言 java for if 块级作用域的作用域的概念
+			/*
+			function test(){
+				for ( var i = 1; i <= 5; i++){
+					alert( i );
+				}
+				alert( 'i = ' + i );
+			}
+			test();*/
+			//alert( i ); //undefined 
+			
+			// JS:() 表示执行 
+			/*
+			function test(){
+				//###################################### 直接就执行了
+				(function(){
+					for( var i = 1; i <= 5; i ++){
+					alert( i ); 
+				}
+				})();// 函数被（）扩起  后面再加上() 当执行到这段代码的时候就被指执行 是一个单独的作用域
+				//#################################################
+				
+				slert( i );// i 已经被回收了  undefiend
+			}
+			test();
+			*/
+			( function(){ alert('我被执行了'); })();//这样文件执行  就会执行这个函数  该函数拥有一个单独的作用域
+			// 执行了 之后  该作用域内的 变量就被销毁了
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

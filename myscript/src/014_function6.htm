@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			
+			//执行环境  window对象  最上层的执行环境
+			var color1 = 'bule';
+			// c1 1级作用域
+			function changeColor(){//每一个函数都有一个执行环境   variable obj
+				// c2 2级作用域
+				var color2 = 'red';
+				function swapColor(){//这个函数又产生了一个执行环境 varoable obj
+					// c3 3级作用域
+					var color3 = color2;
+					color2 = color1;
+					color1 = color3;
+					//这里可以访问color1,2,3
+				} 
+				//这里可以访问color1，color2，但是不能访问color3
+				swapColor();
+			}
+			changeColor();// 作用域 window 第一个作用环境
+			// 环境变量可以一层一层的向上进行追溯  可以访问它的上级环境（变量和函数）
+			// 一层一层的向上追溯  
+		    // 全局变量 一层一层向上追溯时  会比较耗时  效率比较低
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

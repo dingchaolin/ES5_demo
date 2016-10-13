@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//实现接口的第三种方式：鸭式辨型法接口(最完美的javascript实现接口的方法)
+			//注解描述法  属性检测法（只能检测接口是否实现  不能检测方法是否实现）
+			//鸭式辨型法实现的核心：一个类实现接口的主要目的，把接口里的方法都实现了(检测方法)
+			//完全面向对象  代码实现统一了  也解耦了
+			
+			
+			//1 接口类  Class Interface ==>实例化N多个接口
+			/**
+			 * 接口类需要2个参数吗？
+			 * 参数1：接口的名字
+			 * 参数2：接收方法名称的集合（数组）
+			 */
+			var Interface = function( name, methods ){
+				//判断接口的参数个数
+				if( arguments.length != 2){
+					throw new Error(' this instace interface constructor arguments must be 2 length');
+				}
+				this.name = name;
+				this.methods = [];//定义一个内置的空数组对象 等待接收methods里的元素 方法名称
+				for( var i = 0, len = methods.length; i < len; i ++ ){
+					if( typeof methods[i]!== 'string' ){
+						throw Error('method name must  be string!');
+					}
+					
+					this.methods.push( methods[i] );
+				}
+			}
+			//2 准备工作：具体的实现类 
+			//2.1实例化接口对象
+			var CompositeInterface = new Interface('CompositeInterface', ['add','remove'] );
+			var FormItemInterface = new Interface('FormItemInterface',['update','select'] );
+			
+			
+			//CompositeImpl implement CompositeInterface FormItemInterface
+			//2.2具体实现类
+			var CompositeImpl = function(){
+				
+			}
+			//2.3实现接口的方法 implementments methods
+			CompositeImpl.prototype.add = function( obj ){
+				alert('add....');
+			}
+			CompositeImpl.prototype.remove = function( obj ){
+				alert('remove....');
+			}
+			CompositeImpl.prototype.update = function( obj ){
+				alert('update....');
+			}
+			
+			CompositeImpl.prototype.select = function(obj){
+				alert('select....');
+			}
+			
+			
+			//3 检验接口里的方法
+			//如果检验通过  不做任何操作  不通过 浏览器抛出error
+			//这个方法目的就是检测接口的方法
+			Interface.ensureImplements = function( object ){
+				//如果检测方法接收的参数个数小于2，参数传递失败
+				if( arguments.length < 2 ){
+					throw new Error('interface.ensureImplements method constructor arguments must be >= 2');
+				}
+				//获得接口实例对象
+				// 第一个参数是实例对象 没用  
+				for( var i = 1, len = arguments.length; i < len; i ++ ){
+					var instanceInterface = arguments[i];
+					
+					if( instanceInterface.constructor !== Interface ){
+						throw new Error('the arguments constructor not be Interface Class!');
+					}
+					//循环接口实例对象里面的每一个方法
+					for( var j = 0; j <instanceInterface.methods.length; j++){
+						//用一个临时变脸接受每一个方法的名字 注意是字符串 不是方法
+						var methodName = instanceInterface.methods[j];
+						//object[key]
+						if( !object[methodName] || typeof object[methodName] !== 'function'){
+							throw new Error('the mothod name [' + methodName + '] is not found');
+						}
+					}
+				}
+			}
+			var c1 = new CompositeImpl();
+			
+			Interface.ensureImplements( c1, CompositeInterface, FormItemInterface );
+			c1.add();
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

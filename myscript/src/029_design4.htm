@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//单体模式 singleton
+			//简单单体模式  不能使用new 关键字
+			/*
+			var Singleton = {
+				attr1:true,
+				attr2:10,
+				method1:function(){ alert('function1');},
+				methos2:function(){ alert('function2');}
+			};*/
+			//对象字面量 
+			// 把全局的资源  公用的数据都组织到同一个对象中 实现统一管理
+			//调用  不能进行实例  只能通过 . 调用
+			//alert( Singleton.attr1 );
+			// 补充：划分命名空间   区分代码  降低耦合性
+			/*
+			var DCL = {};//命名空间
+			DCL.Singleton = {
+				attr1:true,
+				attr2:10,
+				method1:function(){ alert('function1');},
+				methos2:function(){ alert('function2');}
+			};
+			
+			//alert( DCL.Singleton.attr1 );
+			*/
+			
+			
+			//2 借用闭包创建单体 ： 闭包主要目的  保护数据  
+			var DCL = {};
+			//把块级作用域里的执行结果复制给我的单体对象
+			DCL.Singleton = (function(){
+				
+				//添加自己的私有成员
+				var a1 = true;
+				var a2 = 10;
+				var f1 = function(){ alert('f1');}
+				var f2 = function(){ alert('f2');}
+				
+				return {
+					attr1:a1,
+					attr2:a2,
+					method1:function(){ return f1();},
+					methos2:function(){ return f2();}
+				};
+			})(); 
+			
+			alert( DCL.Singleton.attr1 );
+			DCL.Singleton.method1();
+			//(function(){ alert('hello');})();//此方法运行 就会执行  简单的闭包体  块级作用域
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

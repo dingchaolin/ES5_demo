@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			
+			/*
+			//惰性单体  和闭包单体有一些相似的地方
+			//命名空间
+			var DCL = {};
+			//
+			DCL.Base = (function(){//闭包体
+			    //私有成员变量 控制返回的单体的对象
+				var uniqInstance ;//控制需不需要返回单体对象  或者控制返回哪一部分单体对象
+				 //需要一个构造器 init 初始化单体对象的方法
+				 
+				 //#################################################################
+				 //作用域1
+				 function init(){
+				 	//私有成员变量
+					var a1 = 10;
+					var a2 = true;
+					var fn1 = function(){alert('fn1');}
+					var fn2 = function(){alert('fn2');}
+					
+					return {
+						attr1 : a1,
+						attr2 : a2,
+						method1: function(){
+							return fn1();
+						},
+						method2:function(){
+							return fn2();
+						}
+					};
+				 }
+				 //########################################################################
+				 
+				 
+				
+				  // 在作用域2中调用了作用域1中的数据
+				  // 经典的闭包结构
+				  
+				 
+				 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				 //作用域2
+				return {
+					getInstance : function(){
+						if( !uniqInstance ){//如果不存在  创建单体对象
+							uniqInstacne = init();
+						}
+						return uniqInstacne;
+					}	
+				};
+			})();
+			//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			
+			alert( DCL.Base.getInstance().attr1);
+			DCL.Base.getInstance().method1();
+			
+			*/
+			
+			// 分支单体  判断程序的分支  像switch  浏览器的差异检测
+			var DCL = {};
+			var dif = true;
+			DCL.More = (function(){
+				var objA = {//火狐浏览器内部的一些配置
+					attr1:'FFattr1'
+					//attr2
+					//f1
+					//f2
+				};
+				var objB = {// IE浏览器的内部的一些配置
+					attr1:'IEattr1'
+					//attr2
+					//f1
+					//f2
+				};
+				return (dif)?objA:objB;
+			})();
+			
+			alert( DCL.More.attr1);
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

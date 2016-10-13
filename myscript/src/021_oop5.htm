@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//简单原型
+			//缺点：构造器发生了改变
+			//动态特性，一定是先创建原型对象  再创建实例
+			/*
+			function Person(){
+				
+			}
+			//赋值了一个匿名对象 构造函数就是 Object
+			Person.prototype = {
+				//constructor:Person,//必须要表示原型对象的构造器 必须加上  不能被枚举
+				name:'z3',
+				age:20,
+				job:'程序猿',
+				say:function(){ alert('woshiyuanxinghanshu!');}
+			};
+			// ECMA5 给原型对象重新设置构造器的方法  Object.defineProperty();
+			// 3个参数  参数1 重设构造器的对象  参数2：设置什么属性  参数3：options 配置项
+			Object.defineProperty( Person.prototype, 'constructor', { 
+			       enumerable:false,
+				   value:Person
+			});
+			*/
+			/*
+			var p1 = new Person();
+			//alert( p1.name );
+			//p1.say();
+			//枚举对象的keys
+			//alert( Person.prototype.constructor );
+            for( attr in p1 ){
+				alert( attr );
+			}
+            */
+			
+			// 原型的动态特性
+			/*
+			function Person(){
+				
+			}
+			var p1 = new Person();
+			
+			Person.prototype.say = function(){ alert('woshifangfa');}
+			p1.say();//正常执行  // 原型对象的构造器默认为Person  构造器没有改变  跟先new对象还是后new对象没有关系 
+			*/
+			
+			function Person(){
+				this.school = 'Pking';
+				this.salay = 9000;
+			}
+			var p1 = new Person();
+			//赋值了一个匿名对象 构造函数就是 Object
+			//改变了Person.peototype的指向
+			// 原型对象的构造器默认为Person  这里改变了Person构造器 先new的是一个构造器  修改后new对象又对应一个新的构造器 
+			// 使用简单原型的时候， 实例对象一定要在修改原型对象之后创建
+			Person.prototype = {
+				//constructor:Person,//必须要表示原型对象的构造器 必须加上  不能被枚举
+				name:'z3',
+				age:20,
+				job:'程序猿',
+				say:function(){ alert('woshiyuanxinghanshu!');}
+			};
+			//对象的构造函数指针修改了 为 Object  然后又添加了一个新的属性设定为构造器   此时已经切断了person构造器与对象之间的关联关系
+			//此时的构造器是Object
+			//p1.say();//不能正常执行  error  原型对象是空的 没有任何的属性和方法
+			
+			var p2 = new Person();
+			//p2.say();//能够正常执行  
+			var attr = Object.keys( p1 );
+			//var attr1 = Object.keys( p2.prototype );
+			alert( attr );
+			alert( attr1 );
+			// 使用简单原型的时候， 实例对象一定要在原型对象之后创建  一定要把原型对象修改好 再new对象
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

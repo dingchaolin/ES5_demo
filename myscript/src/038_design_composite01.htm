@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8 src=../commons/CommonUtil.js></script>
+		<script>
+			
+			//组合模式
+			//使用这种模式可以说用一条命令杂多个对象上激发复杂的或者递归的行为
+			//1 你可以用同样的方法处理对象的集合与其中的特定子对象
+			//2 她可以用来把一批子对象组织成树状结构，并使整棵树都可以被遍历
+			/*
+			 * 场景模拟:
+			 * -> 公司
+			 *         -> 财务部门
+			 *                     ->张一
+			 *                     ->张二
+			 *                     ->张三
+			 *        ->销售部门
+			 *                    ->张四
+			 *                    ->张五
+			 *                    ->张六
+			 *                
+			 *    实际的任务具体是落实到人上去实施的  也就是说只有人才有具体的方法实现
+			 *                    
+			 *                    
+			 */
+			var Org = function( name ){
+				this.name = name;//实例对象的扩展
+				this.depts = [];
+				
+			};
+			Org.prototype = {//原型对象的扩展
+				constructor:Org,
+				addDepts:function( child ){
+					this.depts.push(child);
+					return this;//实现链式调用
+				},
+				getDepts:function(){
+					return this.depts;
+				}
+			};
+			var Dept = function( name ){
+				this.name = name;
+				this.persons = [];
+			};
+			Dept.prototype = {
+				constructor:Dept,
+				addPersons:function( child ){
+					this.persons.push( child );
+					return this;
+				},
+				getPersons:function(){
+					return this.persons;
+				}
+			};
+			var Person = function( name ){
+				this.name = name;
+			};
+			Person.prototype = {
+				constructor:Person,
+				hardworking:function(){
+					document.write(this.name + '...努力工作！');
+				},
+				sleeping:function(){
+					document.write(this.name + '...努力睡觉！');
+				}
+			};
+			
+			var p1 = new Person('张1');
+			var p2 = new Person('张2');
+			var p3 = new Person('张3');
+			var p4 = new Person('张4');
+			var p5 = new Person('张5');
+			var p6 = new Person('张6');
+			
+			
+			var dept1 = new Dept('开发部门');
+			dept1.addPersons(p1).addPersons(p2).addPersons(p3);
+			var dept2 = new Dept('销售部门');
+			dept2.addPersons(p4).addPersons(p5).addPersons(p6);
+			
+			var org = new Org('Skyvio');
+			org.addDepts( dept1 ).addDepts( dept2 );
+			
+			//需求：让张三去工作
+			
+			//org.getDepts();
+			
+			for( var i = 0,depts = org.getDepts(); i < depts.length; i++){
+				
+				for( var j = 0, persons = depts[i].getPersons(); j < persons.length ; j ++){
+					if( persons[j].name === '张3'){
+						persons[j].hardworking();
+					}
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8 >
+			
+			//桥的主要作用是将两段代码独立起来  两段代码能够单独执行 和 操作   降低代码之间的耦合度
+			//使每个单元都能独立化  可以实现自己的变化
+			//桥接模式 ： 特权函数
+			/*
+			var PublicClass = function(){
+				//private variable
+				var name = 'zhangSan';
+				//getter  访问私有成员变量 // 特权函数
+				this.getName = function(){
+					return name;
+				}
+			}
+			
+			var p1 = new PublicClass();
+			alert( p1.getName() );
+			*/
+			/*
+			var PublicClass = function(){
+				
+				var privateMethod = function(){
+					alert('执行了一个很复杂的操作！');
+				}
+				//单元测试这个很复杂的函数
+				// privateMethod()
+				//通过特权函数去访问这个私用的独立单元  使用特权函数去解耦  
+				this.bridgeMethod = function(){
+					return privateMethod();
+				}
+			};
+			var p1 = new PublicClass();
+			p1.bridgeMethod();*/
+			
+			
+			//用桥将多个单元组织在一起
+			//使每个单元都能独立化  可以实现自己的变化
+			var Class1 = function( a, b, c ){
+				this.a = a;
+				this.b = b;
+				this.c = c;
+			};
+			
+			var Clsaa2 = function(d,e){
+				this.d = d;
+				this.e = e;
+			};
+			
+			var BridgeClass = function( a, b, c, d, e ){
+				this.class1 = new Class1(a,b,c);
+				this.class2 = new Class2(d,e);
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

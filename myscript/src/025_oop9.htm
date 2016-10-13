@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			
+			//实现只继承一次父类的原型对象  不继承父类的模板
+			function extend( sub, sup ){
+				//目的:只继承一次父类的原型对象
+				//1 用一个空函数进行中转
+				var F = new Function();//空函数  var F = function(){};  
+				F.prototype = sup.prototype;//2 实现空函数的原型对象和父类的原型对象的转化
+				sub.prototype = new F();// 3 原型继承
+				// 子类的构造器是F 需要修改过来
+				sub.prototype.constructor = sub;//4 还原子类的构造器
+				// 保存一下父类的原型对象  方便解耦：降低耦合性    另一方面:可以轻松的获得父类的原型对象
+				sub.superClass = sup.prototype;//自定义一个子类的静态属性  接受父类的原型对象
+				//判断父类的原型对象的构造器(加保险)
+				if( sup.prototype.constructor == Object.prototype.constructor ){
+					sup.prototype.constructor = sup;
+				}
+				 
+				
+			}
+			
+		
+			
+			//混合继承:原型继承和借用构造函数继承
+			function Person( name, age ){
+				this.age = age;
+				this.name = name;
+			}
+            Person.prototype = {
+				constructor:Person,//别忘了写构造器
+				sayHello:function(){ alert( 'hello world!');}	
+			};		
+			function Boy(name, age,sex){
+				this.sex = sex;
+				//call 绑定父类的模板函数 实现   借用构造函数继承  只复制了父类的模板
+				Boy.superClass.constructor.call( this, name, age );
+				 //this.superClass.constructor.call( this, name, age ); //不可以  静态属性只能使用Boy调用
+			}
+			//原型继承方式：继承了父类的模板  又继承了父类的原型对象
+			//Boy.prototype = new Person();//继承了一次父类的模板  只是定义了 没有进行赋值
+			//只继承依稀父类的原型对象
+			
+			//实现只继承一次父类的原型对象  不继承父类的模板
+			extend( Boy, Person);// 自己定义的方法 实现了原型继承
+			
+			Boy.prototype.sayHello = function(){
+				alert('java script!');
+			}
+			
+			
+		   var b = new Boy('zhangsan', 20, 'man');//又继承了一次父类的模板  定义了  也赋值了
+		   alert( b.name );
+		   alert( b.sex );
+		   //b.sayHello();
+		   
+		   Boy.superClass.sayHello.call( b );// 利用保存的父类原型对象的这个属性  父类和子类有重载的方法就可以进行区分了
+			//alert( Object.keys(b) );
+			//缺点: 3件事： 继承了2次父类的模板  继承了1次父类的原型对象
+			
+			/*
+			var yourname;
+			alert( yourname );//undefined  定义了 没有进行初始化 会打印undefined  
+			*/
+			
+			
+			//2件事：继承1次父类的模板  继承一次父类的原型对象
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

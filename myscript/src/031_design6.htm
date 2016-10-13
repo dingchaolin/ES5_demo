@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//1 简单的函数的链式调用
+			//返回对象本身  实现级联调用  return this  链式调用就是return this; 
+			function Dog(){
+				
+				this.run = function(){
+					alert('dpg is running....');
+					return this;
+				}
+				this.eat = function(){
+					alert('dog is eat.....');
+					return this;
+				}
+				this.sleep = function(){
+					alert('dog is sleep.....');
+					return this;
+				}
+				
+			}
+			
+			var dog = new Dog();
+			dog.run().eat().sleep();
+			//dog.run();
+			//dog.eat();
+			//dog.sleep();
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

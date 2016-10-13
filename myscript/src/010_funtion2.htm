@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			// 3种方式定义函数
+			/*
+			// 1 function语句式
+			function test1(){
+				alert('hello1');
+			}
+			//test1();
+			//2 函数的直接量  ECMAScript
+			var tes2 = function(){//表达式
+				alert('hello2');
+			}
+			//test2();
+			// 3 function构造式
+			var test3 = new Function("a", "b","return a+b" );//一定要“”扩起 //表达式  动态的  顶级作用域
+			alert( test3(10,20));
+			*/
+			//效率对比
+			
+			/*
+			var d1 =new Date();
+			var t1 = d1.getTime();
+			for(var i = 0; i < 100000; i ++){
+				//function test1(){;}//functiong语句式  只解析一次  以后再调用 就不再解析 占用内存 效率高
+				//var test2 = new Funtion();//用完就销毁了 
+			}
+			var d2 = new Date();
+			var t2 = d2.getTime();
+			alert( t2 -t1 );
+			*/
+			
+			//解析顺序问题 
+			//对于function（） 语句式的函数  javascript会优先的解释  解释完之后才会顺序执行代码
+			/*
+			test1();//正常执行
+			function test1(){
+				alert('1111');
+			}
+			//test1();
+			*/
+			/*
+			alert( test2 );// undefined 变量声明了 但是未被赋值
+			test2();//未声明
+			var test2 = function(){
+				alert('22222');
+			}
+			//test2();
+			*/
+			//423356
+			/*
+			function f(){ return 1; }
+			alert(f());//返回4  说明第一个函数被第四个函数覆盖
+			var f = new Function("return 2");
+			alert(f());// 返回2 说明第4个函数被第2个函数覆盖
+			var f = function(){ return 3;}
+			alert( f() );//返回2说明第3个函数被第三个函数覆盖
+			function f(){ return 4;}
+			alert( f() );//返回3 说明第4个函数被第三个函数覆盖
+			var f = new Function( "return 5");
+			alert( f() );//返回5 说明第三个函数被第5个函数覆盖
+			var f = function(){ return 6;}
+			alert( f() );//返回6 说明第5个函数被第6个函数覆盖
+			*/
+			//函数作用域
+			var k = 1;
+			function t1(){
+				var k = 2;//局部变量
+				//function  test(){ return k;}// 局部函数 函数作用域 只能看到局部变量k=2  看不到局部变量k=1
+				//var test = function(){ return k;}//k=2;  函数直接量  局部变量 函数作用域 k=2
+				var test = new Function("return k;");//顶级作用域  相当于在外部new了 一个函数  相当于在全局new了一个 
+				// 所以显示是1  动态特性  相当于在外部创建一个函数
+				alert( test() );
+			}
+			t1();
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

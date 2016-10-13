@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//object 所有类的基础类
+			//var obj = new Object();
+			var obj = {};//实例化对象 
+			//给对象设置一些属性
+			obj.name = 'zhangsan';
+			obj.age = 20;
+			obj.sex = 'man';
+			obj['birday'] = '1987-08-07';//[]  属性一定要有‘’或者“” 表示是参数  数组形式的
+			obj.say = function(){
+				alert('hello world!');
+			}
+			//访问对象的属性和方法
+			//alert( obj.name);
+			//alert( obj.age );
+			//obj.say();
+			//object 操作符 删除对象的属性和方法
+			//删除属性
+			/*
+			delete obj.age;
+			delete obj.say;
+			
+			alert( obj.name );
+			alert( 'age = ' + obj.age );
+			alert( "say = " + obj.say );
+			*/
+			
+			//如何去遍历一个JS对象 for in  语句
+			/*
+			for( var attr in obj ){
+				alert( attr + " = " + obj[attr] );// obj.attr 是不行的  必须用[]
+			}
+			*/
+			//Construct  保存对象的创建函数
+			//alert( obj.constructor) ;//构造函数
+			//var arr = {};
+			//alert( arr.constructor );
+			//alert( obj.hasOwnProperty( 'name' ) );//用于检测给定的属性在对象中书否存在
+		    
+			//isPrototyprOf( obj ); //检测原型
+			//alert( obj.propertyIsEnumerable('name') );//某个属性是否能够被for in 被枚举
+			// toLocaleString()  返回对象的字符串表示  该字符串与执行环境的地区相对应
+			//toString() 返回对象的字符串表示
+			//valueOf()  返回对象的字符创数值或布尔表示
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

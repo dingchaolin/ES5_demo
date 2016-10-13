@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8 src=../commons/CommonUtil.js></script>
+		<script type=text/javascript charset=utf-8>
+			//优化的设计模式：  优化的设计模式   优化：时间 代码的运行时间  控件 web浏览器的内存
+			//出产商  型号  出厂日期  拥有者  车牌号 最近登记日期
+			//享元模式：内在数据static（出产商  型号  出厂日期）  外在数据 （拥有者  车牌号 最近登记日期） 
+			var Car = function(make, mode, year ){
+				this.make = make;
+				this.mode = mode;
+				this.year = year;
+				
+				
+			};
+			
+			Car.prototype = {
+				constructor:Car,
+				getMake:function(){return this.make;},
+				getMode:function(){return this.mode;},
+				getYear:function(){return this.year;}
+				
+			};
+			//工厂模式  （闭包工厂）  静态数据
+			//单体模式 外在数据和内在数据结合在一起
+			
+			//闭包工厂
+			var CarFactory = (function(){
+				//已经生产好的car 
+				var createdCars = {};//基于闭包概念 使用时会在全局作用域中寻找createdCars 一直到在全局作用域中不能寻找到createdCars 才会被销毁
+				return {
+					createCar:function( make, mode, year ){
+						//如果createcars对象里已经存在当前的make model year
+						if( createdCars[make+mode+year]){
+							return createdCars[make+mode+year];
+						}else {
+							var car = new Car( make, mode, year );
+							createdCars[make+mode+year] = car;
+							return car;
+						}	
+					}
+				};
+			})();
+			//单体模式
+            var CarRecordManager = (function(){
+				//把登记好的汽车放到这个对象里
+				var carRecordDataBase = {};
+				return {
+					addCarRecord:function(make, mode, year, owner, tag, renewDate ){
+						var car = CarFactory.createCar( make, mode,year );
+						carRecordDataBase[tag] = {
+							owner:owner,
+							renewDate:renewDate,
+							car:car
+						};
+					},
+					renewRegistration:function( tag, newRenewDate){ carRecordDataBase[tag].renewDate = newRenewDate;}
+				};
+			})();			
+			
+			
+			
+			
+			
+			var arr = [];
+			var stime = new Date().getTime();
+			for( var i = 0; i < 5000000; i++){
+				// runtime:770   web:570
+				//arr.push( new Car('大众','迈腾', '2012-02-03', 'DCL','bj0011', '2013-04-01') );
+				
+				//享元模式的测试
+				//runtime:2500  web:250
+				arr.push(CarRecordManager.addCarRecord('大众','迈腾', '2012-02-03', 'DCL','bj0011', '2013-04-01') );
+			}
+			var etime = new Date().getTime();
+			alert( etime - stime );
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

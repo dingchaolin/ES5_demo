@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			// javascript定义接口有3种方式：
+			//1 注解描述式
+			// 特点：第一：程序猿可以有参考  
+			//第二:还是属于文档的范畴，这种方式太松散了 没有检查接口的方法是否被完全实现 
+			//现在几乎很少用了
+			
+			/**
+			 * interface Composite{
+			 * 		function add( obj );
+			 *      function remove( obj );
+			 *      function update( obj );
+			 * }
+			 * 
+			 */
+			//函数直接量的方式
+			// CompositeImpl implements Composite 
+			var  CompositeImpl  = function(){
+				
+			};
+			
+			CompositeImpl.prototype.add = function( obj ){
+				
+			}
+			CompositeImpl.prototype.remove = function( obj ){
+				
+			}
+			CompositeImpl.prototype.update = function( obj ){
+				
+			}
+			var c1 = new CompositeImpl();
+			var c2 = new CompositeImpl();
+			alert( c1.add == c2.add );//true  若是在模板里添加  则这里为false （说明每次new都会创建新的）
+			//2 属性检测的方式
+			//3 鸭式辨型的方式
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

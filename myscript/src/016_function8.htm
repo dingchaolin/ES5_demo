@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			/*
+			var name = 'xiao A';
+			var obj = {
+				name:'xiao B',
+				getName:function(){
+					return function(){// 返回的是全局作用域的全局变量 window
+						return this.name;
+					}
+				}
+			};
+			alert( typeof obj.getName() );//function   该函数的返回找的的window的name  返回的是全局作用域的name
+			// 只能去平级 或者上级去找  name 
+			alert( obj.getName()());//‘xiao A’
+			*/
+			/*
+			var name = 'xiao A';
+			var obj = {
+				name:'xiao B',
+				getName:function(){
+					//this 总是指向调用者  obj
+					var o = this;
+					return function(){
+						return o.name;
+					}
+				}
+			};
+			alert( obj.getName()());//xiao B
+			*/
+			// 闭包  一个函数可以访问另外一个函数作用域中的变量
+			// 封闭性： private 起到一个保护变量的作用
+			
+			// 1
+			function f(x){// 2
+				var temp = x; //局部变量  temp没有被使用
+				return function(x){//3  function 有了一个执行域 var obj 
+					temp += x;//基于闭包概念  temp又被使用了
+					alert(temp);
+				}
+			}
+			
+			var a = f(50);
+			//alert( f(50)(5) );
+			a(5); 
+			a(10);
+			a(20);//在全局作用域中会寻找temp  一直到全局作用域中不在使用temp了 才会被回收
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

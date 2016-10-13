@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+	</head>
+	<script type=text/javascript charset=utf-8>
+		var arr = [1,2,3,4,5,4,3,2,1];
+		//var index = arr.indexOf(4);//返回元素4在数组中的位置 基于0
+		//var index = arr.index(4,4);//从第4个位置开始查找4  起始位置  值
+		//alert( index );
+		// 他们查找数组值比较的时候，是===的类型   必须类型相同
+		
+		
+		//lastIndexOf
+		//var index = arr.lastIndexOf(2);//从后往前找 找2的位置
+		//alert( index );
+		
+		
+		//5个新加迭代的方法
+		// every 对于数组的每一个元素用一个函数去运行  如果每一项都返回true  就返回true  如果有一项返回false  整体返回false 
+		/*
+		var res = arr.every( function(item, index, array){//每一项  索引位置  整体数组
+			return item > 2;
+		});
+		alert( res );
+		*/
+		//filter  对于数组的每一个元素进行运行执行  把过滤的结果返回
+		/*
+		var res = arr.filter( function( item, index, array){
+			return item > 2;
+		}); 
+		alert( res );
+		*/
+		//forEach  循环执行每一项的值  并执行一个方法
+		/*
+		arr.forEach( function( item, index,array){
+			alert( item );
+		});
+		*/
+		//map 对数组的每一个元素进行函数运行  把新的结果返回
+		/*
+		var res = arr.map( function( item, index, array){
+			return item*2;
+		}); 
+		alert( res );
+		*/
+		// some  如果数组项有一个返回true  就返回true 如果每一项都返回false  才返回false
+		/*
+		var res = arr.some( function( item, index, array ){
+			return item >= 5;
+		});
+		alert( res );
+		*/
+		
+		// reduce reduceRight
+		//遍历起始位置不同  
+		//前一个值  当前值  索引位置 数组
+		/* //从左边开始遍历
+		var res = arr.reduce( function(prev, cur, index, array){
+			return prev + cur;
+		});
+		alert( res ) ;//求和
+	  */	
+	  // 从右边开始遍历  倒序遍历
+	  var res = arr.reduceRight( function( pre, cur, index, array ){
+	  	return pre + cur;
+	  });
+	  alert( arr );
+	  
+	</script>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//call apply  简单的用法  绑定一下函数 用于传递参数 调用
+			/*
+			function sum( x, y ){
+				return x+y;
+			}
+			function call1( num1,num2){
+				//this 是指当前函数本身  参数是指当前函数的参数
+				return sum.call( this, num1, num2 );// call 方法是来绑定函数  将一个函数绑定到特定的作用域 使用特定作用域中的参数就行计算
+			}
+			
+			
+			function apply1( num1, num2 ){
+				return sum.apply( this, [num1, num2] );
+			}
+			alert( call1( 10, 20) );
+			alert( apply1( 20,40 ));
+			*/
+			
+			//扩充当前函数运行的作用域
+			window.color = 'red';
+			var obj = {clor:'blue'};
+			function showColor(){
+				alert( this.color );
+			}
+			//showColor.call( this );//this指的是window  red
+			//showColor.call( obj );//obj作用域  bule
+			//根据不同的作用 产生不同的结果】
+			// 可以把一个函数赋给一个对象  用完之后 还可以赋给另外一个对象  
+			// 对象和方法不需要有任何的耦合关系
+			// 变相的实现了重写
+			
+			// call 方法的简单模拟与实现
+			function test1( a, b){
+				return a+b;
+			}
+			//函数名大写的话认为是一个对象
+			//自定义的对象
+			function Obj( x, y){
+				this.x = x;
+				this.y = y;
+				return x*y;
+				
+			}
+			//call apply 的模拟实现
+			var o = new Obj(10,20);
+			o.method = test1;
+			alert( o.method( o.x,o.y));
+			delete o.method;
+			//alert( test1.call( o,o.x, o.y  ));
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

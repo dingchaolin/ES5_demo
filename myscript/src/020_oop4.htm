@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8>
+			//Array each方法
+			//ECMA5 forEach 循环遍历数组的每一项
+			/*
+			var arr = [1,2,3,[4,[5]]]; // 1,2,3,  [4,5]  说明forEach只适合遍历一维数组
+			arr.forEach( function( item, index, arr){
+				alert( item );
+			});
+			*/
+			
+			//自己实现一个Array的each方法 能遍历对位数组
+			
+			var arr = [1,2,3,[4,[5,[6]]]];//四维数组  arr.length 
+			Array.prototype.each = function( fn ){
+				try{
+					// 1. 目的 遍历数组中的每一项
+					this.i || (this.i = 0);// 计数器 记录当前元素的遍历位置  增加的属性  var i = 0; 也可以  这样定义更严谨 解决冲突问题
+					
+					//2 严谨的判断 什么去走each的核心方法
+					//当数组的长度大于0的时候 && 参数必须是个函数
+					if( this.length > 0 && fn.constructor == Function /*构造函数*/){
+						//循环遍历数组的每一项  尽量不要用for in  
+						while( this.i < this.length ){
+							
+						    //获取数组的每一项 
+							var e = this[this.i];//获取数组的每一项
+							if( e && e.constructor == Array ){//是个数组
+							   //如果是个数组就递归 
+							   e.each( fn );
+							}
+							else{
+								//如果不是数组  那就是一个单个元素 
+								//var obj = true;//fn没有对象作用域  空的就可以  
+								//这的目的就是为了执行把数组的当前元素传递给fn函数 并让函数执行
+								fn.call( this, e );//apply 第一个参数是个对象 第二个参数是个数组
+								//第一个参数传什么都可以  fn函数没有作用域的限制  只是为了显示以下当前元素 
+							}
+							this.i++;
+						}
+						this.i = null;//释放内存  垃圾回收机制回收变量
+						
+						
+					}
+				}catch(ex){
+					// do something
+				}
+				return this;
+			}
+			arr.each( function(item){
+				alert( item );
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

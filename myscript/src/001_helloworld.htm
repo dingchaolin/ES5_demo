@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<!--
+		<script typpe="text/javascript" charset="utf-8">
+			//1 helloworld
+			//弹出警告框  浏览器对象
+			//window.alert('hello javascript i am coming!' );
+			//文档的对象
+			//document.write('我是第一个程序');
+			console.info('hello world!');
+		</script>
+		-->
+		<!-- 外部引入文件 src属性 外部引入文件之后  标签内就不能在写代码了-->
+		<!-- 从上到下 边解析边执行-->
+		<!-- defer  延迟执行 文件引入了  当界面中加载之后再执行文件中的代码  但是文件已经引入进来了 相当于window.onload()的作用 -->
+		<script type=text/javascript charset=utf-8 defer=“defer” src='../commons/001.js'></script>
+		<script type=text/javascript charset=utf-8>
+			window.alert('我是内部代码！');
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/jscript charset=utf-8>
+			
+			
+			//第二种实现接口方式  属性检测的方法
+			/**
+			 * interface Composite{
+			 * 		function add( obj );
+			 *      function remove( obj );
+			 *      function update( obj );
+			 * }
+			 * 
+			 * interface FormItem{
+			 * 	    function select( obj );
+			 * }
+			 */
+			//在类的内部显示的把要实现的接口都接受到
+			// CompositeImpl  implements Composite, FormItem
+			var CompositeImpl = function(){
+				//显示的在类的内部 接受所实现的接口
+				// 一般来说一个规范 在类的内部定义一个变量 这个变量名字一定要固定
+				this.implementsInterfaces = ['Composite','FormItem'];//
+			}
+			
+			CompositeImpl.prototype.add = function( obj ){
+				alert('add....');
+			}
+			CompositeImpl.prototype.remove = function( obj ){
+				
+			}
+			CompositeImpl.prototype.update = function( obj ){
+				
+			}
+			
+			CompositeImpl.prototype.select = function(obj){
+				
+			}
+			//检测当前对象是否实现了所有的接口
+			function CheckCompositeImpl(instance){
+				//boolean
+				//判断当前对象是否实现了所有的接口
+				if( !IsImplements(instance, 'Composite', 'FormItem') ){
+					//alert('Error');
+					throw new Error('Object does not implement a requied interface!');
+				}
+			}
+			
+			//公用的具体的检测方法 核心  返回值类型  boolean
+ 		    //这个方法的主要目的就是判断实例对象有没有实现相关的接口
+			function IsImplements( object ){
+				//argument 对象 获取函数的实际参数
+				for( var i = 1; i < arguments.length; i ++){//第一个参数是一个实例对象 跟接口没关系 可以直接跳过
+					//接受每一个所实现的每一个接口的名字
+					var interfaceName = arguments[i];
+					//判断此方法到底是成功 还是失败
+					var interfaceFound = false;
+					
+					for( var j = 0; j < object.implementsInterfaces.length; j ++){
+						if( object.implementsInterfaces[j] == interfaceName ){
+							interfaceFound = true;
+							break;
+						}
+					}
+					if( !interfaceFound){
+						
+						return false;
+					}
+				}
+				
+				return true;
+			}
+            
+			var c1 = new CompositeImpl();
+			CheckCompositeImpl( c1 );
+			//if( Found ) 
+			//c1.add();	
+			/*		
+			var a = 'asd';
+			if( typeof a === 'string' ){
+				alert('string');
+			}
+			*/
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

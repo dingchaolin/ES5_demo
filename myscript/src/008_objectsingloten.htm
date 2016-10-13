@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/jscript charset=utf-8>
+			//Global 全局的 终极的 对象  不存在的
+			// encodeURI  encodeURIComponent
+			var uri = 'http://www.bjsxt.com cn';
+			var str1 = encodeURI( uri );//对于全局的uri进行编码 uri ：// 不会进行转码 空格不可见字符会转码
+			var str2 = encodeURIComponent( uri);//常用的方法  任何不标准的文字都会进行编码转码
+			
+			//decodeURI   decodeURIComponent
+			//alert( str1 );
+			//alert( str2 );
+			//alert( decodeURI(str1));
+			//alert( decodeURIComponent(str2));
+			
+			//eval 无形的js解析器  传入一个字符串 转化为js脚本
+			//var str1 = 'var a = 10; var b = 20;';
+			//eval( str1 );
+			//alert( a + b );
+			//数组字符串 直接使用： eval( stringarr );
+			// { name:z3, age:20 }; 对象
+			/*
+			var strobj = "{ name:'z3', age:20 } "; //用“” 括住整个对象
+			var obj = eval('(' + strobj + ')' );//加扩号表示一段封闭的作用域  就执行了 
+			alert( obj.name );
+			*/
+			
+			//parseInt  parseFloat 
+			/*
+			var num1 = parseInt('20');
+			var num2 = parseFloat('20.5');
+			alert( num1 + num2 );
+			alert( typeof num1 );
+			alert( typeof num2 );
+			*/
+			// escape  unescape  URI
+			/*
+			var str1 = '丁超林';
+			var str2 = escape( str1 );
+			alert( str2 );
+			var str3 = unescape( str2 );
+			alert( str3 );
+			*/
+			
+			//isNaN  判断一个变量不是number类型   不是number类型 true  是number 类型  false
+			/*
+			var num1 = 10;
+			var num2 = 'abcd10';
+			alert( isNaN( num2 ) );
+			// js 里 只有自己不等以自己本身的
+			alert( NaN == NaN );//false
+			*/
+			// math.random()  [0,1) 范围内的任意小数
+			
+			// Date 日期类型
+			var date = new Date();
+			//alert( date );
+			var year = date.getFullYear();//当前
+			var month = date.getMonth() + 1;//获取的月份需要+1
+			var day = date.getDate();//日
+			var hours = date.getHours();//小时
+			var min = date.getMinutes();//分
+			var sec = date.getSeconds();//秒
+			var weekday = date.getDay();
+			document.write( '今天是' + year + '年' + month + '月' + day + '日' + hours + '时' + min + '分' + sec + '秒，星期' + weekday );
+			//date.getTime();//获取当前的毫秒数
+			document.write( '\n毫秒数:' + date.getTime());
+			
+			
+			
+			//基本类型包装类
+			//Boolean  String Number 
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

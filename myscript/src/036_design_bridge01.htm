@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8 src=../commons/CommonUtil.js></script>
+		<script type=text/javascript charset=utf-8 src=../jquery/jquery-1.8.0.min.js></script>
+		<script type=text/javascript charset=utf-8 >
+			
+			
+			//桥接模式：主要作用就是把抽象和现实分离开来 使他们可以完全独立变化
+			//应用场景：事件监听回调机制
+			//用户点击一个按钮，向服务器端发送信息
+			//OnReady()  $.onReady(function(){}); 
+			//当页面加载完毕之后执行函数体  执行里面的function  window.onload
+			/*
+			 // Classic  经典的传统的
+			 
+			$(function(){
+				//1 前台业务逻辑 
+				
+				
+				var inp = document.getElementById('inp');
+			   //用事件注册的方式 向元素上添加事件
+			   BH.EventUtil.addHandler( inp, 'click', sendReq );//元素  类型  事件的响应函数	
+			   
+			   //--------------------------------------------------------------------------------	
+			  //2 后台业务逻辑 
+			  
+			  //处理后台函数
+			 function sendReq(){
+				//ajax
+				//1 后台服务器的地址  2 是一个对象或者一个字符串（参数）
+				 
+				//$.post('URL', {msg:this.value}, function(result){
+					//CallBack的处理
+			//	});//出发事件的是按钮 this指的是调用者 元素 inp
+				
+				
+				alert('发送了数据到后台:' + this.value );
+			 }		
+			});
+			*/
+			
+			//利用桥模式 分开两个业务逻辑单元
+			$(function(){
+				//1 前台业务逻辑 这一段代码处理前台的事件注册和绑定的
+				var inp = document.getElementById('inp');
+			   //用事件注册的方式 向元素上添加事件 // 单元测试的时候 sendReq('data'); 很方便
+			   BH.EventUtil.addHandler( inp, 'click', bridgeHadler );//元素  类型  事件的响应函数	
+			   
+			  function bridgeHadler(){
+			  	 var msg = this.value;//调用者没有变  所有this的value依然能取到值
+			  	 sendReq( msg );
+			  }
+			  
+			  // 这一段代码处理后台发送请求的
+			  //处理后台函数
+			 function sendReq( msg ){
+				//ajax
+				//1 后台服务器的地址  2 是一个对象或者一个字符串（参数）
+				 
+				//$.post('URL', {msg:this.value}, function(result){
+					//CallBack的处理
+			//	});//出发事件的是按钮 this指的是调用者 元素 inp
+				
+				
+				alert('发送了数据到后台:' + msg );
+			 }		
+			});
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<input id=inp type=button value="我是数据..." >
+	</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+	</head>
+	<script type=text/javascript charset=utf-8>
+		// object.getPrototypeOf();根据实例对象获取原型对象
+		function Person(){
+			
+		}
+		Person.prototype.name = 'z3';
+		Person.prototype.age = 20;
+		Person.prototype.sayName = function(){ alert('我是原型对象的方法！');}
+		
+		/*
+		var p1 = new Person();
+		alert( p1.name );//z3
+		var prototypeObj = Object.getPrototypeOf( p1 );//获取p1 对象的原型
+		alert( prototypeObj == Person.prototype );//true
+		*/
+		
+		
+		/*
+		var p2 = new Person();
+		p2.name = 'w5';//实例对象的name
+		delete p2.name ; //执行了删除之后 实例对象中就没有name属性了
+		//删除了实例对象的属性 剩下的就是原型对象的属性  相当于恢复了出场设置
+		alert( p2.name );//获取原型对象的name
+        */
+		// 判断一个对象的属性是属于原型对象的属性还是实例对象的属性
+		/*
+		var p3 = new Person();
+		p3.name = 'z6';
+		//每次代码读取一个对象的属性的时候，首先会进行一次搜索：搜索实例对象里name的属性
+		//如果没有该属性 再去p2的原型对象里去搜索 如果有就返回  没有就返回undefined
+		alert( p3.name );
+		alert( p3.hasOwnProperty('name') );// fasle  说明name属性不是p3自己的 也不一定是属性原型对象的  true 说明属性是属于实例对象本身的
+		*/
+		
+		
+		//in 操作符  for-in
+		/*
+		var p1 = new Person();
+		alert( 'name' in p1 );//true name 属性是属于原型的属性
+		var p2 = new Person();
+		p2.name = 'z7';
+		alert('name' in p2);//盘算属性是否存在于实例对象或原型对象中  都不存在才会返回false
+		*/
+		// 判断一个属性是否存在在原型中
+		//在原型对象中是否存在这个属性  参数1 当前对象   参数2 要判断的属性
+		// true 是属性原型对象的属性  false 不是原型对象的属性
+		//obj.hasOwnProperty(name) == false 说明属性不属于实例对象本身
+		/*
+		function hasPrototypeProperty( obj, name ){
+			return !obj.hasOwnProperty(name) && name in obj;
+		}
+		
+		
+		var p3 = new Person();
+		p3.name = 'xiaoA';
+		alert( hasPrototypeProperty( p3, 'name') );// fasle  name不属于原型对象中
+		*/
+		
+		// ECMA5 新特性  Object.keys()  把对象中的所有属性拿出来  组成一个数组
+				var p1 = new Person();
+				p1.name = 'z3';
+				p1.age = 20;
+				var attr = Object.keys( p1 );//获取实例对象中的所有的属性 并返回一个数组  
+				alert( attr );
+				
+				var attr2 = Object.keys( Person.prototype );//获取原型对象的所有keys 
+				alert( attr2 );
+				
+				//ECMA5  constructor属性是不能被枚举的  
+				//Object.getOwnPropertyNames  获取所有的属性  能不能被枚举都要显示出来
+				
+				var attr3 = Object.getOwnPropertyNames( Person.prototype );//获取原型对象的所有属性
+				alert( attr3 );  // 包括constructor属性
+				
+				
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+	<body>
+	</body>
+</html>

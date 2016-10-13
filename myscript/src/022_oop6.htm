@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+        <script type=text/javascript charset=utf-8>
+        	//原型的概念：原型对象里的所有属性和方法 被所有构造函数实例化出来的对象所共享
+			/*
+			function Person(){
+				
+			}
+			Person.prototype = {
+				constructor:Person,
+				name:'z3',
+				age:34,
+				job:'chengxuyuan',
+				friends:['l4','w5'],
+				sayName:function(){ alert('wode name!');}
+			}
+			
+			var p1 = new Person();
+			var p2 = new Person();
+			
+			p1.friends.push( 'zhao6');
+			
+			alert( p1.friends );
+			alert( p2.friends );
+			//原型里的属性和方法被所有的对象所共享 ： static 
+			*/
+			/*
+			//组合使用原型和构造函数式   定义一个类 开发时常用的方式
+			//构造函数中添加属性
+			function Person( name, age, friends, job ){//添加的是实例对象的属性  
+				this.name = name;
+				this.age = age;
+				this.friends = friends;
+				this.job = job;
+			}
+			//原型对象中添加方法包括构造函数
+			Person.prototype = {//添加的是原型对象的属性
+				constructor:Person,
+				sayName:function(){
+					 alert(this.name);
+					 }
+			};
+			var p1 = new Person( 'z3', 20, ['w5','z6'], '技术总监');
+            var p2 = new Person( 'l4', 43, ['g7','h8','r9'], 'boss');
+			
+			//alert( Object.getOwnPropertyNames(Person.prototype) );//获取原型对象中的所有属性
+			///alert( Object.keys( p1 ));//获取实例对象中的所有属性
+			p2.sayName();			
+			alert( p2.friends );
+			*/
+			
+			/*
+			function fn(){}
+			alert( fn.constructor );
+			*/
+			
+			//动态原型模式（让你的代码都封装到一起）
+			/*
+			function Person( name, age, friends,job ){
+				this.name = name;
+				this.age = age;
+				this.friends = friends;
+				this.job = job;
+				
+				//动态原型方法:
+				if( typeof this.sayName != 'function' ){
+					Person.prototype.sayName = function(){
+						alert( this.name );
+					}
+				}
+			}
+			*/
+			//稳妥构造函数式  durable abject 稳妥对象  非常安全的环境中
+			//1 没有公共属性 
+			//2 不能使用this对象
+			
+			function Person( name, age, job ){
+				//创建一个要返回的对象
+				var obj = new Object();
+				//可以定义一些私有的函数和变量
+				//var sex = 'man';
+				//var saySex = function(){}
+				var name = name;
+				obj.sayName = function(){
+					alert(name);
+				}
+			 
+			 return obj;	
+				
+			}
+			
+			var p1 = Person( 'z3' );
+			p1.sayName();
+			
+			
+			
+        </script>
+	</head>
+	<body>
+	</body>
+</html>

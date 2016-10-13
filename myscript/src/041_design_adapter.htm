@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+		<script type=text/javascript charset=utf-8 src=../commons/CommonUtil.js></script>
+		<script type=text/javascript charset=utf-8>
+			
+			//主要做 接口和类之间的适配工作
+			//适配器： 日常生活中， ps2接口(圆口)  新电脑 ：usb插口    《---ps2-to-usb---》 鼠标和键盘  圆口
+			
+			//程序中  简单的适配器
+			/*
+			var  obj = { str1:'111',str2:'222',str3:'333'};
+			
+			function adapter( obj ){
+				interfaceMethod( obj.str1, obj.str2, obj.str3 );
+			}
+			function interfaceMethod( x, y, x){
+				//复杂的操作
+			}
+			*/
+			
+			//企业开发中：javascript库  extjs  jquery  yui  
+			//YAHOO   
+			//Prototype
+			
+			
+			//YAHOO  我们用雅虎的框架  但是prototype程序猿该怎么写代码  还怎么写代码
+			//根据id获取指定的dom元素
+			//prototype  $ function   不需要传递任何参数
+			
+			
+			function $(){//获取一个id 写一个参数  获取多个id  传递多个参数
+				var elements = [];
+				
+				for( var i = 0; i < arguments.length; i ++ ){
+					var element  = arguments[i];
+					if( typeof element == 'string'){
+						element = document.getElementById( element );
+					}
+					if( arguments.length == 1){
+							return element;
+					}else{
+						elements.push( element );
+					}
+					
+				}
+				return elements;
+			}
+			
+			//YUI   get function    需要传递一个参数  类型  不是字符串  就是数组
+			
+			var YAHOO = {};
+			YAHOO.get = function(el){
+				if( typeof el == 'string'){
+					return document.getElementById(el);
+				}
+				if( el instanceof Array ){
+					var elements = [];
+					for( var i = 0;i < el.length; i ++){
+						elements[elements.length] = YAHOO.get( el[i] );					
+					}
+					return elements;
+				}
+				if( el ){//存在  但既不是数组 又不是string 
+					return el;
+				}
+				return null;//不存在
+			}
+			
+			YAHOO.get = YUItoPrototypeAdapter;
+			function YUItoPrototypeAdapter(){
+				//对于YUI开发人来说，永远传递一个参数
+				var e = arguments[0];  
+				if( arguments.length == 1){
+					return $.apply(window,e instanceof Array?e:[e] );//apply 使用函数绑定到特定的作用域中运行
+				}
+				else{
+					return $.apply(window, arguments );//$(arguments);
+				}
+			}
+			
+			
+			window.onload = function(){
+				
+				//prototype 习惯的写法
+				/*
+				var domarr = $('inp1','inp2');
+				alert( domarr );
+				*/
+				
+				//YUI开发人员的习惯写法
+				/*
+				var domarr = YAHOO.get(['inp1','inp2']);
+				alert( domarr );
+				*/
+			   //YUI  prototype  用项目经理的方法	
+			   var domarr = YAHOO.get('inp1','inp2');
+				alert( domarr );
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<input id = "inp1" />
+		<input id = "inp2" />
+	</body>
+</html>

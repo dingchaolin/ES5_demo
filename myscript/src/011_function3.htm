@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Untitled Document</title>
+	<script type=text/javascript charset=utf-8>
+		//function 参数
+		//形参列表
+		//js  函数的参数：形参  实参
+		function test( a,b,c,d){
+			//alert( test.length );//返回形式参数的个数
+			//函数的实际参数 内部就是使用一个数组去接受函数的实际参数
+			//arguments  对象 可以访问函数的额实际参数
+			//arguments 对象只能在函数内部使用 不能在函数外部使用
+			/*
+			alert( arguments.length );
+			alert( arguments[0]);
+			alert( arguments[1]);
+			
+			if( arguments.callee.length == arguments.length ){//arguments.callee.length 取的就是test.length
+				return a+b;
+			}
+			else{
+				alert( 'param Error!');
+			}
+			  */
+			//arguments 对象用的最多的还是做递归操作
+			//arguments.callee.length 
+		}
+		//alert( test(10,20));//30 不给参数返回NaN
+		
+		function fact( num ){
+			if( num <= 1 ) return 1;
+			else {
+					return num*arguments.callee( num-1);// arguments.callee 指的就是fact 指的函数本身
+			}
+		}
+		
+		var F =  fact;
+		fact = null;
+		alert( F(5) );
+		
+	</script>
+	</head>
+	<body>
+	</body>
+</html>
